@@ -26,8 +26,8 @@ const faqJsonLd = {
   })),
 };
 
-// Homepage: forest hero (service panels) → booking section (#quote, the
-// calculator-style form every Book / Get Quote button scrolls to) → service-area map →
+// Homepage: forest hero (service panels) → booking section (#quote — hidden
+// until a Book / Get Quote button is tapped, then it opens here) → service-area map →
 // promise strip → services →
 // benefits (sage) → before/after → how it works (forest) → pricing →
 // comparison table → about → FAQ. Light and forest sections alternate.
