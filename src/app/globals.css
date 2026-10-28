@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------
+   Airlyf — PREMIUM FOREST GREEN design system.
+   Palette: forest #102D24 · deep green #1D503C · fresh green #48B47A ·
+   sage #E1EDE5 · white #F7F9F6 · charcoal #252D29 · grey #68756D ·
+   lines #DCE5DE. Roughly 70% light surfaces, 20% forest, 10% fresh green.
+
+   Tokens keep their teal-* / mint-* names so components re-skin from here:
+     teal-400 = fresh green — button fills, icons, highlights (NOT small
+                text on white: 2.6:1). Buttons on it use forest text.
+     teal-500 = accessible accent green for text on light (4.6:1).
+     teal-600/700 = deep green · teal-800 = forest (headings, dark bands).
+     mint-*   = fresh green accents used on forest bands.
+   ---------------------------------------------------------------- */
+@theme {
+  /* Green scale (primary) + forest anchor */
+  --color-teal-50: #e1ede5; /* soft sage (chips, fills, light bands) */
+  --color-teal-100: #d2e5d8;
+  --color-teal-200: #b9d8c4; /* light borders */
+  --color-teal-300: #6cc794; /* accents on dark, hover for green buttons */
+  --color-teal-400: #48b47a; /* fresh green — CTAs, icons, highlights */
+  --color-teal-500: #2b8556; /* accent text on light (AA) */
+  --color-teal-600: #1d503c; /* deep green — text/solid on light */
+  --color-teal-700: #163f30;
+  --color-teal-800: #102d24; /* forest (headings, dark solids) */
+
+  /* Fresh-green accent — readable on forest */
+  --color-mint-400: #48b47a; /* accent text / prices on forest (5.7:1) */
+  --color-mint-500: #6cc794; /* accent lines & dots */
+  --color-mint-600: #e1ede5; /* lightest accent */
+
+  /* Text & surfaces — LIGHT base */
+  --color-ink: #252d29; /* charcoal headings/text */
+  --color-ink-soft: #68756d; /* secondary text */
+  --color-canvas: #f7f9f6; /* page background */
+  --color-surface: #ffffff; /* cards */
+  --color-line: #dce5de; /* borders & dividers */
+
+  /* Bands behind white text (booking form, reviews, province heroes). */
+  --color-band-900: #102d24;
+  --color-band-700: #133529;
+  --color-band-500: #1d503c;
+
+  /* Dark tokens (bands) */
+  --color-navy: #0b2219;
+  --color-midnight: #102d24;
+  --color-air: #48b47a;
+  --color-cyan: #48b47a; /* focus/accent */
+  --color-ice: #ffffff;
+  --color-muted: #68756d;
+  --color-success: #2b8556;
+
+  /* Semantic aliases */
+  --color-background: var(--color-canvas);
+  --color-foreground: var(--color-ink);
+  --color-primary: var(--color-air);
+  --color-accent: var(--color-teal-400);
+
+  /* Fonts (wired up in layout.tsx) */
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-manrope);
+
+  /* Radius & shadows — one soft radius scale site-wide */
+  --radius-md: 0.875rem; /* cards, panels, images */
+  --radius-lg: 0.875rem;
+  --radius-xl: 1rem;
+  --radius-card: 1rem;
+  --shadow-soft: 0 18px 40px -20px rgb(16 45 36 / 0.22);
+  --shadow-hard: 0 24px 48px -24px rgb(16 45 36 / 0.35);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Visible, consistent keyboard focus everywhere. */
+:focus-visible {
+  outline: 2px solid var(--color-teal-400);
+  outline-offset: 3px;
+}
+
+/* Respect reduced-motion: no smooth scroll, no looping/entrance keyframes.
+   (framer-motion animations are handled by <MotionConfig reducedMotion="user">.) */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  /* Elements that slide in from the side (Reveal from="right") start
+     off-screen; clip so phones never get a sideways scroll. `clip` (not
+     `hidden`) keeps the fixed header and position: sticky working. */
+  overflow-x: clip;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+/* Inner content pages (services / areas / cities / price guides / blog / 404):
+   light background, with the fresh-green accent swapped for the accessible
+   accent green so accent text stays readable on white. */
+.theme-inner {
+  --color-mint-400: #2b8556;
+  --color-mint-500: #b9d8c4;
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+/* Strong but controlled headings. */
+h1,
+h2,
+h3 {
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+/* Small uppercase industrial eyebrow label. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Slanted section divider (industrial). Put on a full-bleed wrapper. */
+.slant-top {
+  clip-path: polygon(0 3vw, 100% 0, 100% 100%, 0 100%);
+}
+.slant-bottom {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3vw), 0 100%);
+}
+
+/* Primary (fresh-green) button: pill shape, calm lift on hover. Shape and
+   case live here so every CTA across the site stays consistent. */
+.btn-primary {
+  position: relative;
+  border-radius: 9999px;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  box-shadow: 0 10px 24px -12px rgb(16 45 36 / 0.45);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px -12px rgb(16 45 36 / 0.5);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary outline button (pairs with .btn-primary). */
+.btn-outline {
+  border-radius: 9999px;
+  text-transform: none;
+  letter-spacing: 0.01em;
+}
+
+/* WhatsApp floating button — gentle bounce + ripple ring (CSS only) */
+@keyframes wa-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+@keyframes wa-ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Service-area ticker: list is rendered twice, so -50% loops seamlessly. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Interactive service-area map: service regions brighten with a soft glow on
+   hover / selection; keyboard focus gets a clear forest outline. */
+.map-region path {
+  transition:
+    filter 0.2s ease,
+    stroke 0.2s ease,
+    stroke-width 0.2s ease;
+}
+.map-region:hover path,
+.map-region[data-active] path {
+  filter: brightness(1.12) drop-shadow(0 0 5px rgb(72 180 122 / 0.55));
+  stroke: #ffffff;
+  stroke-width: 1.6;
+}
+.map-region:focus-visible path {
+  stroke: #102d24;
+  stroke-width: 2.4;
+}
+
+/* Hero panels: slow cinematic zoom on the active photo. */
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.14);
+  }
+}
+.hero-zoom {
+  animation: hero-zoom 9s ease-out forwards;
+}
+
+/* Leaf accent twinkle (kept for any remaining twinkle uses). */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.7) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+/* Gentle floating motion for decorative badges. */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Price changed → brief pop (the number itself is always shown, never faded). */
+@keyframes total-pop {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.total-pop {
+  animation: total-pop 0.3s ease-out;
+}
+
+::selection {
+  background: var(--color-teal-400);
+  color: #ffffff;
+}
