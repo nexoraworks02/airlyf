@@ -59,7 +59,16 @@ export const provincePages: ProvincePage[] = [
         closing: "Book online in a couple of minutes, or send us a WhatsApp message for a quote.",
       },
     ],
-    cities: ["Toronto", "Mississauga", "Brampton", "Vaughan", "Markham", "Richmond Hill", "Oakville", "Hamilton", "Ottawa", "London", "Kitchener", "Windsor"],
+    cities: [
+      // Ordered by population (Statistics Canada, 2021 Census)
+      "Toronto", "Ottawa", "Mississauga", "Brampton", "Hamilton", "London",
+      "Markham", "Vaughan", "Kitchener", "Windsor", "Oakville", "Richmond Hill",
+      "Burlington", "Oshawa", "Greater Sudbury", "Barrie", "Guelph", "Cambridge",
+      "Whitby", "St. Catharines", "Milton", "Kingston", "Ajax", "Waterloo",
+      "Thunder Bay", "Brantford", "Clarington", "Pickering", "Niagara Falls", "Newmarket",
+      "Peterborough", "Caledon", "Sault Ste. Marie", "Sarnia", "Halton Hills", "Aurora",
+      "Welland", "Belleville", "North Bay", "Whitchurch-Stouffville", "Cornwall",
+    ],
   },
   {
     slug: "alberta",
@@ -97,9 +106,12 @@ export const provincePages: ProvincePage[] = [
       },
     ],
     cities: [
-      "Calgary", "Edmonton", "Red Deer", "Lethbridge", "St. Albert", "Airdrie", "Medicine Hat",
-      "Grande Prairie", "Spruce Grove", "Leduc", "Fort Saskatchewan", "Chestermere", "Beaumont",
-      "Lloydminster", "Camrose", "Cold Lake", "Brooks", "Lacombe", "Wetaskiwin",
+      // Ordered by population (Statistics Canada, 2021 Census)
+      "Calgary", "Edmonton", "Red Deer", "Lethbridge", "Airdrie", "Sherwood Park",
+      "Fort McMurray", "St. Albert", "Grande Prairie", "Medicine Hat", "Spruce Grove", "Leduc",
+      "Cochrane", "Okotoks", "Fort Saskatchewan", "Chestermere", "Beaumont", "Lloydminster",
+      "Camrose", "Stony Plain", "Sylvan Lake", "Canmore", "Cold Lake", "Brooks",
+      "Strathmore", "High River", "Lacombe", "Wetaskiwin",
     ],
   },
   {
@@ -124,7 +136,7 @@ export const provincePages: ProvincePage[] = [
         heading: "Built for Quebec Winters and Humid Summers",
         paragraphs: [
           "Tight, energy-efficient homes rely on the ventilation system to swap stale air for fresh. When ducts and HRV cores are dusty, that exchange slows down and rooms feel stuffy. Humid summers add moisture to the mix.",
-          "A Airlyf visit helps you:",
+          "An Airlyf visit helps you:",
         ],
         bullets: [
           "Restore airflow to rooms that never feel warm enough",
@@ -137,16 +149,13 @@ export const provincePages: ProvincePage[] = [
       },
     ],
     cities: [
-      "Montreal", "Laval", "Longueuil", "Quebec City",
-      // Montreal area: North Shore
-      "Terrebonne", "Repentigny", "Mascouche", "Blainville", "Boisbriand", "Sainte-Thérèse", "Saint-Eustache",
-      // South Shore
-      "Brossard", "Boucherville", "Saint-Bruno-de-Montarville", "La Prairie", "Candiac", "Châteauguay",
-      "Varennes", "Sainte-Julie", "Saint-Jean-sur-Richelieu",
-      // West Island
-      "Dorval", "Pointe-Claire", "Kirkland", "Dollard-des-Ormeaux", "Vaudreuil-Dorion",
-      // Elsewhere in Quebec
-      "Gatineau", "Sherbrooke",
+      // Ordered by population (Statistics Canada, 2021 Census)
+      "Montreal", "Quebec City", "Laval", "Gatineau", "Longueuil", "Sherbrooke",
+      "Lévis", "Saguenay", "Trois-Rivières", "Terrebonne", "Saint-Jean-sur-Richelieu", "Brossard",
+      "Repentigny", "Saint-Jérôme", "Drummondville", "Granby", "Mirabel", "Blainville",
+      "Saint-Hyacinthe", "Mascouche", "Châteauguay", "Dollard-des-Ormeaux", "Saint-Eustache", "Vaudreuil-Dorion",
+      "Boucherville", "Pointe-Claire", "Sainte-Julie", "Boisbriand", "Saint-Bruno-de-Montarville", "La Prairie",
+      "Sainte-Thérèse", "Candiac", "Varennes", "Kirkland", "Dorval",
     ],
   },
   {
@@ -183,7 +192,14 @@ export const provincePages: ProvincePage[] = [
           "Add heat pump, dryer vent or HRV cleaning to the same visit when you book online.",
       },
     ],
-    cities: ["Vancouver", "Surrey", "Richmond", "Burnaby", "Coquitlam", "Langley Township", "Abbotsford", "Chilliwack", "Kelowna", "Kamloops"],
+    cities: [
+      // Ordered by population (Statistics Canada, 2021 Census)
+      "Vancouver", "Surrey", "Burnaby", "Richmond", "Abbotsford", "Coquitlam",
+      "Kelowna", "Langley Township", "Saanich", "Delta", "Nanaimo", "Kamloops",
+      "Chilliwack", "Victoria", "Maple Ridge", "North Vancouver", "New Westminster", "Prince George",
+      "Port Coquitlam", "Vernon", "West Vancouver", "Mission", "Penticton", "Campbell River",
+      "Port Moody",
+    ],
   },
   {
     slug: "manitoba",
@@ -212,7 +228,11 @@ export const provincePages: ProvincePage[] = [
         ],
       },
     ],
-    cities: ["Winnipeg", "Brandon", "Steinbach", "Portage la Prairie", "Selkirk"],
+    cities: [
+      // Ordered by population (Statistics Canada, 2021 Census)
+      "Winnipeg", "Brandon", "Steinbach", "Winkler", "Portage la Prairie", "Thompson",
+      "Selkirk", "Morden", "Dauphin",
+    ],
   },
   {
     slug: "saskatchewan",
@@ -236,7 +256,7 @@ export const provincePages: ProvincePage[] = [
         heading: "Cleaner Ducts, Easier Heating",
         paragraphs: [
           "When ducts and the blower are coated in dust, the furnace has to run longer to keep the house warm. Cleaning the system takes that load off.",
-          "A Airlyf visit helps you:",
+          "An Airlyf visit helps you:",
         ],
         bullets: [
           "Cut down on prairie dust coming out of the vents",
@@ -248,7 +268,11 @@ export const provincePages: ProvincePage[] = [
           "Add furnace cleaning, dryer vent or a filter change in the booking form and it's all done in one visit.",
       },
     ],
-    cities: ["Regina", "Saskatoon", "Prince Albert", "Moose Jaw"],
+    cities: [
+      // Ordered by population (Statistics Canada, 2021 Census)
+      "Saskatoon", "Regina", "Prince Albert", "Moose Jaw", "Swift Current", "Yorkton",
+      "North Battleford", "Warman", "Weyburn", "Estevan", "Martensville",
+    ],
   },
   {
     slug: "maritime-provinces",
@@ -273,6 +297,11 @@ export const provincePages: ProvincePage[] = [
         ],
       },
     ],
-    cities: ["Halifax", "Moncton", "Saint John", "Fredericton", "Charlottetown", "St. John’s"],
+    cities: [
+      // Ordered by population (Statistics Canada, 2021 Census)
+      "Halifax", "St. John’s", "Cape Breton", "Moncton", "Saint John", "Fredericton",
+      "Charlottetown", "Dieppe", "Conception Bay South", "Paradise", "Mount Pearl", "Riverview",
+      "Corner Brook", "Quispamsis", "Miramichi", "Edmundston", "Summerside", "Truro",
+    ],
   },
 ];
