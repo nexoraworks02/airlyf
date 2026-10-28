@@ -28,8 +28,8 @@ export const site = {
   defaultPhone: PHONE,
 
   // --- Social / marketing (leave "" to hide the icon until provided) ---
-  facebookUrl: "",
-  instagramUrl: "",
+  facebookUrl: "https://www.facebook.com/share/1AYmaL5tRp/",
+  instagramUrl: "https://www.instagram.com/airlyf_ductcleaning",
 
   // --- Meta Ads tracking ---
   // Set NEXT_PUBLIC_META_PIXEL_ID in your environment. While empty, the Pixel
