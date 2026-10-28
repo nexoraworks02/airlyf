@@ -81,8 +81,9 @@ export function WhatsAppButton() {
 
   // Once per visit: the red "1" badge pops in, then the mini chat opens
   // (with a soft ding if the visitor has already tapped the page).
+  // Desktop only — on phones the bottom dock has WhatsApp and this is hidden.
   useEffect(() => {
-    if (readDismissed()) return;
+    if (readDismissed() || !window.matchMedia("(min-width: 1024px)").matches) return;
     const badge = setTimeout(() => setUnread(true), BADGE_DELAY_MS);
     const popup = setTimeout(() => {
       if (shownOnce.current) return;
@@ -113,8 +114,8 @@ export function WhatsAppButton() {
   };
 
   return (
-    // Mobile: sits above the mobile CTA bar (bottom-24). Desktop: bottom-6 right-6.
-    <div className="fixed bottom-24 right-5 z-40 flex flex-col items-end lg:bottom-6 lg:right-6">
+    // Desktop only (bottom-right). Phones use WhatsApp in the bottom dock (MobileCTABar).
+    <div className="fixed bottom-6 right-6 z-40 hidden flex-col items-end lg:flex">
       <AnimatePresence>
         {open && (
           <motion.div

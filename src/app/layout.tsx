@@ -129,7 +129,7 @@ export default function RootLayout({
       lang="en"
       className={`${manrope.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-canvas text-ink pb-16 lg:pb-0">
+      <body className="min-h-full flex flex-col bg-canvas text-ink pb-24 lg:pb-0">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
