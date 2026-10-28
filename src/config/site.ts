@@ -234,6 +234,12 @@ export function provinceCodeFromPath(pathname: string): string | undefined {
   return provinces.find((p) => p.slug === slug)?.code;
 }
 
+// Link to the homepage booking section (sections/BookingSection.tsx, #quote).
+// With a province code the form starts on that province: "/?area=AB#quote".
+export function quoteHref(provinceCode?: string): string {
+  return provinceCode ? `/?area=${provinceCode}#quote` : "/#quote";
+}
+
 // tel: link in international format, e.g. "(416) 555-0123" → "tel:+14165550123".
 export function telHref(phone: string): string {
   return `tel:+1${phone.replace(/\D/g, "").slice(-10)}`;

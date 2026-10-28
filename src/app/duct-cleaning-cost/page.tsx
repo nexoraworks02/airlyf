@@ -175,7 +175,7 @@ export default function CostHubPage() {
             <ServiceFAQ faqs={faqs} />
           </Reveal>
           <div className="mt-10 text-center">
-            <Button href="#quote" size="lg">See your exact total — Book online</Button>
+            <Button href="/#quote" size="lg">See your exact total — Book online</Button>
           </div>
         </Container>
       </section>

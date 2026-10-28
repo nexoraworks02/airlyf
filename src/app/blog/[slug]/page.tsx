@@ -133,7 +133,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             See your exact price and pick a slot between 8 am and 6 pm — it takes about two minutes.
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="#quote" size="lg">Book online</Button>
+            <Button href="/#quote" size="lg">Book online</Button>
             <Link href="/duct-cleaning-cost/" className="font-semibold text-mint-400 hover:text-ink">
               View prices
             </Link>

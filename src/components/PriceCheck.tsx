@@ -3,12 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Minus, Plus, ShieldCheck } from "lucide-react";
-import { provinces } from "@/config/site";
+import { provinces, quoteHref } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 // Live price card (region → furnaces → extras → total). Not shown right now;
 // to bring it back, render <PriceCheck /> in the hero (sections/Hero.tsx).
-// "Book this cleaning" passes the choices to the booking form via data-quote.
+// "Book this cleaning" opens the homepage booking section on the chosen region.
 
 const EXTRAS = ["dryer", "ac", "hrv", "brush-cleaning"];
 
@@ -123,12 +123,7 @@ export function PriceCheck() {
           <span key={total} className="total-pop font-display text-3xl font-extrabold">{`$${total}`}</span>
         </div>
         <Link
-          href="/#quote"
-          // Read by BookingModal so the form opens with this region and these add-ons.
-          data-quote={JSON.stringify({
-            province: code,
-            qty: { furnace: furnaces, ...Object.fromEntries(extras.map((id) => [id, 1])) },
-          })}
+          href={quoteHref(code)}
           className="btn-primary flex items-center justify-center gap-2 whitespace-nowrap bg-teal-400 px-6 py-3.5 text-[15px] font-bold text-teal-800 hover:bg-teal-300"
         >
           Book this cleaning

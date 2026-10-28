@@ -9,7 +9,7 @@ import {
   Phone,
 } from "lucide-react";
 import type { ProvincePage } from "@/config/service-areas";
-import { site, provinces, phoneFor, telHref, whatsappFor, addressFor } from "@/config/site";
+import { site, provinces, phoneFor, telHref, whatsappFor, addressFor, quoteHref } from "@/config/site";
 import { cities, cityUrl } from "@/config/cities";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -114,7 +114,7 @@ export function ProvinceLanding({ page }: { page: ProvincePage }) {
               ))}
               {/* Desktop only — phones have the bottom Call/Quote bar + WhatsApp */}
               <div className="mt-8 hidden flex-wrap gap-4 lg:flex">
-                <Button href="#quote" size="lg">
+                <Button href={quoteHref(page.code)} size="lg">
                   Book Your Cleaning
                 </Button>
                 <a

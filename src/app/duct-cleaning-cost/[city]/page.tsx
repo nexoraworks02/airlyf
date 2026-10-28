@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, CheckCircle2, Lightbulb } from "lucide-react";
 import { cities, citiesIn, cityArea, cityUrl, costUrl, getCity } from "@/config/cities";
-import { site, addonPrice } from "@/config/site";
+import { site, addonPrice, quoteHref } from "@/config/site";
 import { COMPARE_TIPS, COST_YEAR, INCLUDED, costFaqs } from "@/config/cost";
 import { Container } from "@/components/ui/Container";
 import { Section, SectionHeading } from "@/components/ui/Section";
@@ -153,7 +153,7 @@ export default async function CityCostPage({ params }: PageProps) {
             <ServiceFAQ faqs={faqs} />
           </Reveal>
           <div className="mt-10 flex flex-col items-center gap-4">
-            <Button href="#quote" size="lg">Book in {city.name} — see your total</Button>
+            <Button href={quoteHref(p.code)} size="lg">Book in {city.name} — see your total</Button>
             <Link href={cityUrl(city)} className="group inline-flex items-center gap-2 font-semibold text-mint-400 hover:text-ink">
               {`Air duct cleaning in ${city.name}`}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

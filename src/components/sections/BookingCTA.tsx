@@ -4,12 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CalendarCheck, MessageCircle, Phone } from "lucide-react";
 import { Container } from "../ui/Container";
-import { contactLineFor, provinces, site, telHref } from "@/config/site";
+import { contactLineFor, provinces, site, telHref, quoteHref } from "@/config/site";
 
 /**
  * Full-width deep-green booking band at the top of the footer on every page. "Book
- * online" links to "#quote", which the site-wide <BookingModal /> opens. On a
- * province page it names that area and shows its starting price, and the
+ * Your Cleaning" links to the homepage booking section (quoteHref). On a
+ * province page it names that area, shows its starting price, starts the
+ * booking form on that province, and the
  * Call / WhatsApp buttons use that province's line when it has its own.
  */
 export function BookingCTA() {
@@ -23,7 +24,7 @@ export function BookingCTA() {
   );
 
   return (
-    <div id="quote" className="relative isolate scroll-mt-24 overflow-hidden bg-teal-600 text-white">
+    <div className="relative isolate overflow-hidden bg-teal-600 text-white">
       {/* Soft fresh-green glow, top right */}
       <div
         aria-hidden="true"
@@ -41,7 +42,7 @@ export function BookingCTA() {
         </div>
         <div className="flex flex-col gap-3 sm:flex-row">
           <Link
-            href="#quote"
+            href={quoteHref(area?.code)}
             className="btn-primary inline-flex items-center justify-center gap-2 whitespace-nowrap bg-teal-400 px-7 py-4 text-[15px] font-bold text-teal-800 hover:bg-teal-300"
           >
             <CalendarCheck className="h-5 w-5" />

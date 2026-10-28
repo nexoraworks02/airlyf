@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { Logo } from "./Logo";
 import { Container } from "./ui/Container";
-import { nav, provinces, services, site, telHref } from "@/config/site";
+import { nav, provinceCodeFromPath, provinces, quoteHref, services, site, telHref } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 // Icons for the Services dropdown (explicit imports keep the bundle small).
@@ -190,7 +190,7 @@ export function Navbar() {
         </nav>
 
         <Link
-          href="/#quote"
+          href={quoteHref(provinceCodeFromPath(pathname))}
           className="btn-primary hidden items-center gap-2 whitespace-nowrap bg-teal-400 px-6 py-3 text-sm font-bold text-teal-800 hover:bg-teal-300 xl:inline-flex"
         >
           <CalendarCheck className="h-4 w-4" />

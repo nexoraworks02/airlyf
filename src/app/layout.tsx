@@ -9,7 +9,6 @@ import { MobileCTABar } from "@/components/MobileCTABar";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { MetaPixel } from "@/components/MetaPixel";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { BookingModal } from "@/components/BookingModal";
 import { MotionProvider } from "@/components/MotionProvider";
 
 // Manrope for body + headings — clean, modern and premium.
@@ -142,7 +141,6 @@ export default function RootLayout({
           <Footer />
           <MobileCTABar />
           <WhatsAppButton />
-          <BookingModal />
         </MotionProvider>
       </body>
       {/* GA4 loads only once a real Measurement ID is set in site config */}

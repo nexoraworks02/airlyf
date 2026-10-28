@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CalendarCheck, MessageCircle, Phone } from "lucide-react";
-import { phoneFor, provinceCodeFromPath, site, telHref, whatsappFor } from "@/config/site";
+import { phoneFor, provinceCodeFromPath, site, telHref, whatsappFor, quoteHref } from "@/config/site";
 
 /**
  * Phones & tablets: a floating forest-green dock — Call (left), a raised
@@ -37,7 +37,7 @@ export function MobileCTABar() {
 
         {/* Raised centre button */}
         <Link
-          href="/#quote"
+          href={quoteHref(code)}
           className="group flex flex-col items-center justify-end gap-0.5 self-stretch pb-1.5"
           aria-label="Get a free quote"
         >

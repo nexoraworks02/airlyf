@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, CheckCircle2, Clock, Home, MapPin, Phone, ShieldCheck, Sun } from "lucide-react";
 import { cities, citiesIn, cityArea, cityUrl, costUrl, getCity } from "@/config/cities";
-import { services, site, phoneFor, telHref } from "@/config/site";
+import { services, site, phoneFor, telHref, quoteHref } from "@/config/site";
 import { Container } from "@/components/ui/Container";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
@@ -117,7 +117,7 @@ export default async function CityPage({ params }: PageProps) {
               </div>
               {/* Desktop only — phones have the bottom Call/Quote bar */}
               <div className="mt-8 hidden flex-wrap gap-4 lg:flex">
-                <Button href="#quote" size="lg">Book Online</Button>
+                <Button href={quoteHref(prov.code)} size="lg">Book Online</Button>
                 <Button href={telHref(phone)} variant="secondary" size="lg">
                   <Phone className="h-4 w-4" />
                   Call {phone}
