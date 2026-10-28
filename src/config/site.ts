@@ -1,21 +1,22 @@
 import { hasVideoTestimonials } from "./feedback-videos";
+import { reviews } from "./reviews";
 
 // Single source of truth for the Airlyf brand.
 // Change the name, phones, pricing, or service areas here and the whole site updates.
 
 // TODO(launch): every value marked PLACEHOLDER must be replaced with the real
 // business details before going live (see SITE_BLUEPRINT.md §9).
-const PHONE = "(555) 010-0100"; // PLACEHOLDER — main line
-const PHONE_DIGITS = "15550100100"; // PLACEHOLDER — same number, digits only, for wa.me
+const PHONE = "(647) 947-9124"; // main line (from the previous airlyf.ca site)
+const PHONE_DIGITS = "16479479124"; // same number, digits only, for wa.me (WhatsApp)
 
 export const site = {
   name: "Airlyf",
   // Primary host (non-www). www.airlyf.ca should redirect here on Vercel.
-  url: "https://airlyf.ca", // PLACEHOLDER until the domain is bought
+  url: "https://airlyf.ca",
   tagline: "Duct & Furnace Cleaning Specialists",
   description:
     "Airlyf cleans air ducts, furnaces, dryer vents and HRVs for homes and businesses in Ontario, Alberta, Quebec, British Columbia, Manitoba, Saskatchewan and the Maritimes. Flat, published prices, trained technicians and a free furnace inspection with every visit — request your free quote.",
-  email: "info@airlyf.ca", // PLACEHOLDER
+  email: "support@airlyf.ca",
   whatsapp: PHONE,
   // WhatsApp number in full international digits (no +, spaces or symbols) for wa.me links.
   whatsappDigits: PHONE_DIGITS,
@@ -249,8 +250,13 @@ export const nav = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/#services" },
   { label: "Pricing", href: "/duct-cleaning-cost/" },
-  // "Reviews" points at the video section, so it only shows once videos exist.
-  ...(hasVideoTestimonials ? [{ label: "Reviews", href: "/#videos" }] : []),
+  // "Reviews" points at the testimonials (or the video section), so it only
+  // shows once real reviews or videos exist.
+  ...(reviews.length > 0
+    ? [{ label: "Reviews", href: "/#reviews" }]
+    : hasVideoTestimonials
+      ? [{ label: "Reviews", href: "/#videos" }]
+      : []),
   { label: "Service Areas", href: "/service-areas/" },
   { label: "Contact", href: "/#contact" },
 ];

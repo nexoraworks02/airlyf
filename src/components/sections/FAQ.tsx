@@ -10,9 +10,8 @@ import { faqs } from "@/config/faqs";
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    // No top padding: it follows About on the same background (the About
-    // section's bottom padding already provides the gap).
-    <Section id="faq" className="bg-canvas pt-0 sm:pt-0 lg:pt-0">
+    // Follows the forest testimonials band, so it keeps its normal padding.
+    <Section id="faq" className="bg-canvas">
       <SectionHeading eyebrow="Good to know" title="Frequently asked questions" />
       <Reveal from="zoom" className="mx-auto mt-12 max-w-3xl">
       <div className="relative isolate divide-y divide-slate-200 overflow-hidden rounded-md border border-slate-200 bg-white pb-6 shadow-[0_30px_70px_-40px_rgba(16,45,36,0.45)]">
