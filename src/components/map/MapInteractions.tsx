@@ -7,6 +7,9 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, MapPin } from "lucide-react";
 import { MAP_VIEWBOX } from "./regions";
 
+// Short labels for the touch pins.
+const PIN_LABEL: Record<string, string> = { bc: "BC", ab: "AB", sk: "SK", mb: "MB", on: "ON", qc: "QC", mt: "ATL" };
+
 export type MapRegionInfo = {
   key: string;
   slug: string;
@@ -51,6 +54,11 @@ export function MapInteractions({
     });
   }, [selected]);
 
+  // Touch has no hover: a tap on a region or pin SELECTS it (panel + photo
+  // update) and the panel's button opens the page. Mouse/keyboard: hover or
+  // focus previews, click / Enter opens the page directly.
+  const touch = useRef(false);
+
   const regionOf = (t: EventTarget | null) =>
     (t as Element | null)?.closest?.<SVGAElement>("a[data-region]") ?? null;
 
@@ -88,19 +96,56 @@ export function MapInteractions({
 
       <div
         ref={root}
-        className="relative"
-        onPointerOver={(e) => enter(e.target)}
-        onPointerOut={(e) => leave(e.target, e.relatedTarget)}
-        onFocus={(e) => enter(e.target)}
+        onPointerDown={(e) => {
+          touch.current = e.pointerType !== "mouse";
+        }}
+        onPointerOver={(e) => e.pointerType === "mouse" && enter(e.target)}
+        onPointerOut={(e) => e.pointerType === "mouse" && leave(e.target, e.relatedTarget)}
+        onFocus={(e) => !touch.current && enter(e.target)}
         onBlur={(e) => leave(e.target, e.relatedTarget)}
         onClick={(e) => {
           const a = regionOf(e.target);
           if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
           e.preventDefault();
+          if (touch.current) {
+            touch.current = false;
+            setSelected(a.dataset.region ?? selected);
+            return;
+          }
           router.push(a.getAttribute("href") ?? "/service-areas/");
         }}
       >
+        {/* Map + pins + tooltip share this box, so % positions match the SVG */}
+        <div className="relative">
         {children}
+
+        {/* Touch: a thumb-sized pin on each region (phones & tablets) */}
+        {regions.map((r) => {
+          const on = r.key === selected;
+          return (
+            <button
+              key={r.key}
+              type="button"
+              onClick={() => setSelected(r.key)}
+              aria-label={`${r.name} — show details`}
+              aria-pressed={on}
+              className="absolute z-20 flex -translate-x-1/2 -translate-y-full flex-col items-center lg:hidden"
+              style={{
+                left: pct(r.label[0], MAP_VIEWBOX.x, MAP_VIEWBOX.w),
+                top: pct(r.label[1], MAP_VIEWBOX.y, MAP_VIEWBOX.h),
+              }}
+            >
+              <span
+                className={`flex h-8 min-w-8 items-center justify-center rounded-full border-2 px-1 text-[10px] font-extrabold shadow-md transition-colors ${
+                  on ? "border-white bg-teal-800 text-white" : "border-teal-600 bg-white text-teal-800"
+                }`}
+              >
+                {PIN_LABEL[r.key] ?? r.name.slice(0, 2).toUpperCase()}
+              </span>
+              <span className={`-mt-1 h-2.5 w-2.5 rotate-45 border-b-2 border-r-2 ${on ? "border-white bg-teal-800" : "border-teal-600 bg-white"}`} />
+            </button>
+          );
+        })}
 
         {/* Name tooltip — one element that glides to the hovered region */}
         <span
@@ -114,6 +159,10 @@ export function MapInteractions({
         >
           {tip.name}
         </span>
+        </div>
+        <p className="mt-2 text-center text-xs font-semibold text-teal-700 lg:hidden">
+          Tap a pin to see each service area
+        </p>
       </div>
 
       {/* Details panel for the selected region */}

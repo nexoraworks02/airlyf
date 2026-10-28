@@ -56,7 +56,8 @@ export function Hero() {
             {`Vents, furnaces, ducts and AC cleaned with powerful negative-air vacuums by trained crews in seven regions — from $${lowestPrice}, with your total confirmed before we start.`}
           </motion.p>
 
-          <motion.div variants={item} className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          {/* Desktop only — below lg the fixed bottom bar (MobileCTABar) has Call / Get Quote */}
+          <motion.div variants={item} className="mt-8 hidden gap-3 lg:flex lg:items-center">
             <Link
               href="/#quote"
               className="btn-primary inline-flex items-center justify-center gap-2 whitespace-nowrap bg-teal-400 px-6 py-4 text-[15px] font-bold text-teal-800 hover:bg-teal-300"
