@@ -12,7 +12,7 @@ const ROWS: { label: string; us: string; them: string }[] = [
   { label: "Price", us: "Published online, confirmed before work", them: "\"From\" price, total given on site" },
   { label: "Furnace", us: "Free inspection every visit", them: "Inspection charged or skipped" },
   { label: "Equipment", us: "Negative-air vacuum + rotary tools", them: "Sometimes a portable shop-vac" },
-  { label: "Booking", us: "Online in 2 minutes, arrival window", them: "Call back for a quote" },
+  { label: "Booking", us: "Online in 2 minutes, we call to set a time", them: "Call back for a quote" },
 ];
 
 export function Comparison() {

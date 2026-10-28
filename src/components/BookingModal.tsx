@@ -126,7 +126,7 @@ export function BookingModal() {
               Book your cleaning in minutes
             </h2>
             <p className="mt-1 text-sm text-slate-300">
-              Choose your service, add any extras, pick a day and time — we&apos;ll confirm fast.
+              Tell us about your home and add any extras — we&apos;ll call to confirm a time.
             </p>
           </div>
           <button

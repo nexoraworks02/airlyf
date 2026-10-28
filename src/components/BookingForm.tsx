@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   motion,
   AnimatePresence,
@@ -21,9 +21,7 @@ import { cn } from "@/lib/utils";
 
 /* ---------------- Form options ---------------- */
 
-// Open 8 am – 6 pm, including evening slots.
-const TIME_SLOTS = ["Morning (8:00 am - 12:00 pm)", "Afternoon (12:00 pm - 4:00 pm)", "Evening (4:00 pm - 6:00 pm)"];
-const DWELLINGS = ["House", "Commercial", "Duplex", "Townhouse", "Other"];
+const HOUSE_SIZES = ["Under 2,000 sq ft", "2,000 – 2,500 sq ft", "2,500 – 4,000 sq ft", "Over 4,000 sq ft"];
 
 type Step = "form" | "done";
 
@@ -37,29 +35,16 @@ function TotalAmount({ value, className }: { value: number; className?: string }
   );
 }
 
-function formatDate(d: string) {
-  if (!d) return "—";
-  return new Date(`${d}T00:00:00`).toLocaleDateString("en-CA", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-}
-
 function isValidPhone(phone: string) {
   const digits = phone.replace(/\D/g, "");
   return digits.length === 10 || (digits.length === 11 && digits.startsWith("1"));
 }
 
-function isValidEmail(email: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
-}
-
 /**
  * The booking form itself (no page section around it). Shown inside the
  * booking pop-up — see components/BookingModal.tsx — which opens from any
- * link to "#quote".
+ * link to "#quote". Kept short on purpose: name, phone, province, address,
+ * house size and add-ons — the team calls back to confirm the time.
  */
 /** Choices carried over from the hero price check ("Book this cleaning"). */
 export type QuotePreset = { province: string; qty: Record<string, number> };
@@ -79,21 +64,14 @@ export function BookingForm({
   const honeypot = useRef<HTMLInputElement>(null);
 
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
+    fullName: "",
     phone: "",
-    houseSize: "",
     province: preset?.province ?? defaultProvince,
-    date: "",
-    time: TIME_SLOTS[0],
-    dwelling: DWELLINGS[0],
     address: "",
-    postalCode: "",
-    message: "",
+    houseSize: "",
   });
   // Add-on quantities by id (0 = not chosen). Per-unit add-ons (furnaces,
-  // exhaust fans) can be 1…maxQty; the rest are simply 0 or 1.
+  // dryer vents, exhaust fans) can be 1…maxQty; the rest are simply 0 or 1.
   const [qty, setQty] = useState<Record<string, number>>(preset?.qty ?? {});
   // A new price-check preset (each click is a new object) sets the area and
   // add-ons, keeping whatever the customer already typed.
@@ -108,9 +86,6 @@ export function BookingForm({
   const set = (k: keyof typeof form) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => setForm((f) => ({ ...f, [k]: e.target.value }));
-
-  // Earliest bookable day = today (YYYY-MM-DD), so past dates can't be picked.
-  const minDate = useMemo(() => new Date().toLocaleDateString("en-CA"), []);
 
   // Prices (Basic Duct Cleaning + add-ons) are set by the customer's province.
   const selectedProvince =
@@ -129,7 +104,7 @@ export function BookingForm({
   const stepAddon = (id: string, delta: number, max: number) =>
     setQty((q) => ({ ...q, [id]: Math.min(max, Math.max(0, (q[id] ?? 0) + delta)) }));
 
-  const fullName = `${form.firstName} ${form.lastName}`.trim();
+  const fullName = form.fullName.trim();
 
   // Pre-filled WhatsApp booking message (used on the success/error screens).
   const waMessage = encodeURIComponent(
@@ -138,12 +113,9 @@ export function BookingForm({
       "",
       `Customer: ${fullName}`,
       `Phone: ${form.phone}`,
-      `Email: ${form.email}`,
-      `Address: ${form.address} ${form.postalCode}`,
+      `Address: ${form.address}`,
       `Province: ${selectedProvince.name}`,
-      `Dwelling: ${form.dwelling} · House size: ${form.houseSize || "—"}`,
-      `Preferred Date: ${formatDate(form.date)}`,
-      `Preferred Time: ${form.time}`,
+      `House size: ${form.houseSize || "—"}`,
       "",
       `Service: ${pkgLabel}`,
       selectedAddons.length ? "Additional services:" : "Additional services: None",
@@ -168,11 +140,6 @@ export function BookingForm({
       return;
     }
 
-    if (!isValidEmail(form.email)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
-
     submittingRef.current = true;
     setSubmitting(true);
     setError(null);
@@ -194,22 +161,14 @@ export function BookingForm({
           subject: `New Booking — ${fullName} (${selectedProvince.name}, $${total})`,
           from_name: `${site.name} Website`,
           name: fullName,
-          // "email" is special in Web3Forms: it becomes the reply-to address.
-          email: form.email,
           phone: form.phone,
           province: selectedProvince.name,
           address: form.address,
-          postalCode: form.postalCode,
-          dwelling: form.dwelling,
-          houseSize: form.houseSize || "—",
-          furnacesToClean: String(qty.furnace ?? 0),
-          preferredDate: formatDate(form.date),
-          preferredTime: form.time,
+          houseSize: form.houseSize,
           service: pkgLabel,
           additionalServices:
             selectedAddons.map((a) => `${lineLabel(a)} ($${a.price * a.qty})`).join(", ") || "None",
           estimatedTotal: `$${total}`,
-          message: form.message || "None",
           source: "booking-form",
         }),
       });
@@ -239,28 +198,18 @@ export function BookingForm({
             <div>
               <StepLabel n={1} title="Your details" />
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="First name *">
-                  <input required suppressHydrationWarning autoComplete="given-name" value={form.firstName} onChange={set("firstName")} className="input" />
-                </Field>
-                <Field label="Last name *">
-                  <input required suppressHydrationWarning autoComplete="family-name" value={form.lastName} onChange={set("lastName")} className="input" />
-                </Field>
-                <Field label="Email *">
+                <Field label="Full name *">
                   <input
                     required
                     suppressHydrationWarning
-                    type="email"
-                    inputMode="email"
-                    autoComplete="email"
-                    pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
-                    title="Enter a valid email address, for example name@example.com"
-                    placeholder="you@example.com"
-                    value={form.email}
-                    onChange={set("email")}
+                    autoComplete="name"
+                    placeholder="Your full name"
+                    value={form.fullName}
+                    onChange={set("fullName")}
                     className="input"
                   />
                 </Field>
-                <Field label="Phone *">
+                <Field label="Contact number *">
                   <input
                     required
                     suppressHydrationWarning
@@ -294,21 +243,30 @@ export function BookingForm({
                   </Field>
                 </div>
                 <div className="sm:col-span-2">
-                  <Field label="Address *">
-                    <input required suppressHydrationWarning autoComplete="street-address" placeholder="Street address, city" value={form.address} onChange={set("address")} className="input" />
+                  <Field label="House address *">
+                    <input
+                      required
+                      suppressHydrationWarning
+                      autoComplete="street-address"
+                      placeholder="Street address, city"
+                      value={form.address}
+                      onChange={set("address")}
+                      className="input"
+                    />
                   </Field>
                 </div>
-                <Field label="Postal code *">
-                  <input required suppressHydrationWarning autoComplete="postal-code" placeholder="M5E 1P8" value={form.postalCode} onChange={set("postalCode")} className="input" />
-                </Field>
-                <Field label="Dwelling">
-                  <select suppressHydrationWarning value={form.dwelling} onChange={set("dwelling")} className="input">
-                    {DWELLINGS.map((d) => <option key={d}>{d}</option>)}
-                  </select>
-                </Field>
-                <Field label="House size">
-                  <input suppressHydrationWarning placeholder="e.g. 2,000 sq ft" value={form.houseSize} onChange={set("houseSize")} className="input" />
-                </Field>
+                <div className="sm:col-span-2">
+                  <Field label="House size *">
+                    <select required suppressHydrationWarning value={form.houseSize} onChange={set("houseSize")} className="input">
+                      <option value="" disabled>
+                        Select house size
+                      </option>
+                      {HOUSE_SIZES.map((s) => (
+                        <option key={s}>{s}</option>
+                      ))}
+                    </select>
+                  </Field>
+                </div>
               </div>
             </div>
 
@@ -322,7 +280,7 @@ export function BookingForm({
                 {addons.map((a) => {
                   const n = qty[a.id] ?? 0;
                   const on = n > 0;
-                  // Per-unit add-on (furnaces, exhaust fans): − count + stepper.
+                  // Per-unit add-on (furnaces, dryer vents, exhaust fans): − count + stepper.
                   if (a.unit) {
                     return (
                       <div
@@ -386,33 +344,6 @@ export function BookingForm({
                     </button>
                   );
                 })}
-              </div>
-            </div>
-
-            {/* Step 4 — Schedule */}
-            <div>
-              <StepLabel n={4} title="Pick a day & time" />
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="Preferred date *">
-                  <input required suppressHydrationWarning type="date" min={minDate} value={form.date} onChange={set("date")} className="input" />
-                </Field>
-                <Field label="Time *">
-                  <select required suppressHydrationWarning value={form.time} onChange={set("time")} className="input">
-                    {TIME_SLOTS.map((t) => <option key={t}>{t}</option>)}
-                  </select>
-                </Field>
-                <div className="sm:col-span-2">
-                  <Field label="Your message (optional)">
-                    <textarea
-                      rows={3}
-                      suppressHydrationWarning
-                      placeholder="e.g. pets at home, basement vents, parking notes…"
-                      value={form.message}
-                      onChange={set("message")}
-                      className="input resize-y"
-                    />
-                  </Field>
-                </div>
               </div>
             </div>
 

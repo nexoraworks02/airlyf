@@ -9,7 +9,7 @@ const STEPS = [
     icon: CalendarCheck,
     time: "About 2 minutes",
     title: "Book online",
-    text: "Pick your region, add any extras and choose a morning, afternoon or evening arrival. You see the total before you send it.",
+    text: "Pick your region, add any extras and send your details — you see the total first. We call to confirm a morning, afternoon or evening arrival.",
   },
   {
     icon: Wrench,

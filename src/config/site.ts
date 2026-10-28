@@ -150,7 +150,7 @@ const tier = (p: {
   addons: [
     { id: "furnace", label: "Furnace Cleaning", price: p.furnace, unit: "furnace", maxQty: 3 },
     { id: "ac", label: "AC Cleaning", price: p.ac },
-    { id: "dryer", label: "Dryer Vent", price: p.dryer },
+    { id: "dryer", label: "Dryer Vent", price: p.dryer, unit: "vent", maxQty: 3 },
     { id: "hrv", label: "HRV", price: p.hrv },
     { id: "heat-pump", label: "Heat Pump Cleaning", price: p.heatPump },
     { id: "central-vacuum", label: "Central Vacuum", price: p.centralVacuum },

@@ -270,7 +270,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Before the crew arrives",
         paragraphs: [
-          "When you [book online](/#quote), you pick your extras and a morning, afternoon or evening arrival window (8 am – 6 pm). On the day, clear a path to the furnace and move any furniture that's covering a vent.",
+          "When you [book online](/#quote), you pick your extras and we call to confirm a morning, afternoon or evening arrival window (8 am – 6 pm). On the day, clear a path to the furnace and move any furniture that's covering a vent.",
         ],
       },
       {

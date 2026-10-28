@@ -40,7 +40,7 @@ export const cities: City[] = [
     ],
     faqs: [
       { question: "Do you clean semis and townhouses in Toronto?", answer: "Yes — detached houses, semis, row houses, townhomes and duplexes. For condo units, send us a message with your system type and we'll let you know what we can clean." },
-      { question: "Which parts of Toronto do you cover?", answer: "The whole city: downtown, East York, North York, Scarborough and Etobicoke. Pick Ontario in the booking form and choose a morning, afternoon or evening arrival." },
+      { question: "Which parts of Toronto do you cover?", answer: "The whole city: downtown, East York, North York, Scarborough and Etobicoke. Pick Ontario in the booking form to see your prices, and we call to confirm a morning, afternoon or evening arrival." },
     ],
   },
   {
@@ -190,7 +190,7 @@ export const cities: City[] = [
     ],
     faqs: [
       { question: "Is it worth cleaning ducts after wildfire smoke?", answer: "It helps. Smoke particles settle in filters and on duct walls. A cleaning plus a fresh filter removes what the system has pulled in." },
-      { question: "Do you cover every Calgary community?", answer: "Yes. Choose Alberta in the booking form to see your prices and pick an arrival window." },
+      { question: "Do you cover every Calgary community?", answer: "Yes. Choose Alberta in the booking form to see your prices, and we call to set an arrival window." },
     ],
   },
   {
@@ -349,7 +349,7 @@ export const cities: City[] = [
     ],
     faqs: [
       { question: "When should I book in Winnipeg?", answer: "Late summer and fall are busiest so the system is clean before the cold, but any time of year makes a difference." },
-      { question: "Do you cover all of Winnipeg?", answer: "Yes. Choose Manitoba in the booking form to see your prices and pick an arrival window between 8 am and 6 pm." },
+      { question: "Do you cover all of Winnipeg?", answer: "Yes. Choose Manitoba in the booking form to see your prices, and we call to set an arrival window between 8 am and 6 pm." },
     ],
   },
 
