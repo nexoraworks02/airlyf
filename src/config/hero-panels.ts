@@ -1,9 +1,8 @@
 // The four "piano key" panels in the homepage hero — one per service.
 //
-// Right now each panel is an existing photo with a slow zoom and animated
-// dust being pulled toward a vacuum point (pure code, no video files).
-// When the real clips are ready, drop them in /public/videos/hero/ and set
-// `video` (and optionally `poster`) — the panel switches to the video.
+// A panel with `video` plays that clip (from /public/videos/hero/); the photo
+// shows underneath until the clip starts. A panel without one shows the photo
+// with a slow zoom and animated dust being pulled toward a vacuum point.
 
 export type HeroPanel = {
   key: string;
@@ -14,6 +13,7 @@ export type HeroPanel = {
   // Where the dust is pulled to, as % of the panel (the hose / vent opening).
   suction: { x: number; y: number };
   video?: string; // e.g. "/videos/hero/hero-vents.mp4"
+  videoPosition?: string; // object-position for the (portrait) clip
   poster?: string; // still frame shown while the video loads
 };
 
@@ -25,6 +25,8 @@ export const heroPanels: HeroPanel[] = [
     image: "/images/photos/tech-ceiling-vent.webp",
     imagePosition: "62% 28%",
     suction: { x: 62, y: 26 },
+    video: "/videos/hero/hero-vents.mp4",
+    videoPosition: "50% 30%",
   },
   {
     key: "furnace",
@@ -33,6 +35,8 @@ export const heroPanels: HeroPanel[] = [
     image: "/images/photos/tech-duct-system.webp",
     imagePosition: "66% 30%",
     suction: { x: 58, y: 22 },
+    video: "/videos/hero/hero-furnace.mp4",
+    videoPosition: "50% 50%",
   },
   {
     key: "ducts",
@@ -49,5 +53,7 @@ export const heroPanels: HeroPanel[] = [
     image: "/images/photos/ac-unit.webp",
     imagePosition: "30% 55%",
     suction: { x: 34, y: 52 },
+    video: "/videos/hero/hero-ac.mp4",
+    videoPosition: "50% 62%",
   },
 ];

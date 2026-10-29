@@ -77,9 +77,25 @@ function Panel({
 }) {
   const Icon = ICONS[panel.key] ?? Wind;
   const video = useRef<HTMLVideoElement>(null);
+  const [ready, setReady] = useState(false);
   // Touch taps also fire mouseenter (which activates the panel) before the
   // click, so remember whether it was already active when the finger went down.
   const tap = useRef({ touch: false, wasActive: false });
+
+  // Fade the clip in once it has a frame. It may have loaded before hydration,
+  // so check readyState as well as listening.
+  useEffect(() => {
+    const v = video.current;
+    if (!v) return;
+    const show = () => setReady(true);
+    if (v.readyState >= 2) show();
+    v.addEventListener("loadeddata", show);
+    v.addEventListener("playing", show);
+    return () => {
+      v.removeEventListener("loadeddata", show);
+      v.removeEventListener("playing", show);
+    };
+  }, []);
 
   // Only the active panel's video plays.
   useEffect(() => {
@@ -110,34 +126,37 @@ function Panel({
       style={{ flexGrow: active ? 3.2 : 1 }}
       className="group relative isolate min-w-0 basis-0 overflow-hidden bg-teal-700 outline-offset-[-3px] transition-[flex-grow] duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
     >
-      {/* Media: video when provided, otherwise the photo with a slow zoom */}
-      {panel.video ? (
+      {/* Media: the photo (slow zoom when there's no video), with the video
+          fading in on top once it has frames to show */}
+      <div
+        key={active && animate && !panel.video ? "zoom" : "still"}
+        className={cn("absolute inset-0 -z-20", active && animate && !panel.video && "hero-zoom")}
+      >
+        <Image
+          src={panel.image}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 32vw, 60vw"
+          className="object-cover"
+          style={{ objectPosition: panel.imagePosition }}
+        />
+      </div>
+      {panel.video && (
         <video
           ref={video}
           src={panel.video}
-          poster={panel.poster ?? panel.image}
+          poster={panel.poster}
           muted
           loop
           playsInline
           preload="metadata"
           aria-hidden="true"
-          className="absolute inset-0 -z-20 h-full w-full object-cover"
-          style={{ objectPosition: panel.imagePosition }}
+          className={cn(
+            "absolute inset-0 -z-20 h-full w-full object-cover transition-opacity duration-700",
+            ready || panel.poster ? "opacity-100" : "opacity-0"
+          )}
+          style={{ objectPosition: panel.videoPosition ?? panel.imagePosition }}
         />
-      ) : (
-        <div
-          key={active && animate ? "zoom" : "still"}
-          className={cn("absolute inset-0 -z-20", active && animate && "hero-zoom")}
-        >
-          <Image
-            src={panel.image}
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 32vw, 60vw"
-            className="object-cover"
-            style={{ objectPosition: panel.imagePosition }}
-          />
-        </div>
       )}
 
       {/* Dust being pulled toward the hose / vent (photo mode only) */}

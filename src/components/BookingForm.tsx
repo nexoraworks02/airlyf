@@ -230,7 +230,7 @@ export function BookingForm({
                 type="tel"
                 inputMode="tel"
                 autoComplete="tel"
-                pattern="(?:\+?1[\s.-]?)?\(?[2-9]\d{2}\)?[\s.-]?\d{3}[\s.-]?\d{4}"
+                pattern="(?:\+?1[\s.\-]?)?\(?[2-9]\d{2}\)?[\s.\-]?\d{3}[\s.\-]?\d{4}"
                 title="Enter a valid 10-digit phone number, for example (416) 555-0123"
                 placeholder="(416) 555-0123"
                 value={form.phone}
