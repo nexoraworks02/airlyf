@@ -18,7 +18,10 @@ export function Hero() {
   };
 
   return (
-    <section className="relative isolate overflow-hidden bg-teal-800 pb-36 pt-[104px] text-white sm:pt-[116px] lg:pb-40 lg:pt-[140px]">
+    // Below lg the hero fills the visible screen (svh = height with the
+    // browser's address bar showing), so the next section doesn't peek in
+    // behind the bottom bar.
+    <section className="relative isolate min-h-svh overflow-hidden bg-teal-800 pb-36 pt-[104px] text-white sm:pt-[116px] lg:min-h-0 lg:pb-40 lg:pt-[140px]">
       {/* Background: the service panels */}
       <HeroPanels className="absolute inset-0 -z-20" />
       {/* Readability shade over the panels (doesn't block hovering them) */}

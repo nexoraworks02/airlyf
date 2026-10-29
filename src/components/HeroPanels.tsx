@@ -174,10 +174,11 @@ function Panel({
         )}
       />
 
-      {/* Narrow key: icon + vertical label */}
+      {/* Narrow key: icon + vertical label (below lg, lifted clear of the
+          floating bottom bar) */}
       <span
         className={cn(
-          "absolute inset-x-0 bottom-4 flex flex-col items-center gap-3 transition-opacity duration-300",
+          "absolute inset-x-0 bottom-24 flex lg:bottom-4 flex-col items-center gap-3 transition-opacity duration-300",
           active ? "opacity-0" : "opacity-100"
         )}
         aria-hidden={active}
@@ -193,7 +194,7 @@ function Panel({
       {/* Wide key: label + link prompt */}
       <span
         className={cn(
-          "absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 transition-all duration-500 sm:p-5",
+          "absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 pb-24 transition-all duration-500 sm:p-5 sm:pb-24 lg:pb-5",
           active ? "translate-y-0 opacity-100 delay-150" : "pointer-events-none translate-y-3 opacity-0"
         )}
         aria-hidden={!active}
