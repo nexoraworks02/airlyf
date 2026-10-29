@@ -150,6 +150,8 @@ function Panel({
           loop
           playsInline
           preload="metadata"
+          disablePictureInPicture
+          controlsList="nodownload noplaybackrate"
           aria-hidden="true"
           className={cn(
             "absolute inset-0 -z-20 h-full w-full object-cover transition-opacity duration-700",

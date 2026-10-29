@@ -10,6 +10,7 @@ import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { MetaPixel } from "@/components/MetaPixel";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { MotionProvider } from "@/components/MotionProvider";
+import { MediaGuard } from "@/components/MediaGuard";
 
 // Manrope for body + headings — clean, modern and premium.
 // (Max weight is 800; font-black resolves to it.)
@@ -134,6 +135,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <MetaPixel />
+        <MediaGuard />
         <MotionProvider>
           <ScrollProgress />
           <Navbar />
