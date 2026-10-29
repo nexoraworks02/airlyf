@@ -4,7 +4,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, CheckCircle2, Clock, Home, MapPin, Phone, ShieldCheck, Sun } from "lucide-react";
 import { cities, citiesIn, cityArea, cityUrl, costUrl, getCity } from "@/config/cities";
-import { services, site, phoneFor, telHref, quoteHref } from "@/config/site";
+import { services, site, phoneFor, telHref, quoteHref, whatsappFor } from "@/config/site";
+import { provincePages } from "@/config/service-areas";
+import { CoverageSearch } from "@/components/CoverageSearch";
 import { Container } from "@/components/ui/Container";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Button, onDarkSecondary } from "@/components/ui/Button";
@@ -168,6 +170,24 @@ export default async function CityPage({ params }: PageProps) {
               </Reveal>
             </div>
           </div>
+        </Container>
+      </section>
+
+      {/* "Is my neighbourhood covered?" — instant coverage check */}
+      <section className="bg-canvas py-10 sm:py-12">
+        <Container className="max-w-3xl">
+          <Reveal>
+            <CoverageSearch
+              city={city.name}
+              provinceName={area.name}
+              provinceCode={prov.code}
+              neighbourhoods={city.neighbourhoods}
+              nearby={city.nearby ?? []}
+              provinceCities={provincePages.find((p) => p.slug === area.slug)?.cities ?? []}
+              phone={phone}
+              whatsappDigits={whatsappFor(prov.code)}
+            />
+          </Reveal>
         </Container>
       </section>
 
