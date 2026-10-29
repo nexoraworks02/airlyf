@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, CheckCircle2, Clock, Home, MapPin, Phone, ShieldCheck, Sun } from "lucide-react";
@@ -6,7 +7,7 @@ import { cities, citiesIn, cityArea, cityUrl, costUrl, getCity } from "@/config/
 import { services, site, phoneFor, telHref, quoteHref } from "@/config/site";
 import { Container } from "@/components/ui/Container";
 import { Section, SectionHeading } from "@/components/ui/Section";
-import { Button } from "@/components/ui/Button";
+import { Button, onDarkSecondary } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { CardDecor } from "@/components/ui/CardDecor";
 import { ServiceFAQ } from "@/components/ServiceFAQ";
@@ -78,84 +79,97 @@ export default async function CityPage({ params }: PageProps) {
   ];
 
   return (
-    <div className="theme-inner relative min-h-screen pt-28 sm:pt-32 lg:pt-40">
+    <div className="theme-inner relative min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-[10%] top-[5%] h-[400px] w-[400px] rounded-full bg-teal-200/20 blur-[120px]" />
-      </div>
 
-      <Container className="py-12">
-        <Reveal>
-          <Breadcrumbs
-            items={[
-              { label: area.name, href: `/${area.slug}/` },
-              { label: city.name, href: cityUrl(city) },
-            ]}
-          />
-        </Reveal>
+      {/* Forest hero over the province's landmark photo */}
+      <section className="relative isolate overflow-hidden bg-teal-800 pb-16 pt-28 text-white sm:pt-32 lg:pb-20 lg:pt-40">
+        <Image
+          src={prov.photo}
+          alt=""
+          fill
+          preload
+          sizes="100vw"
+          className="-z-20 object-cover opacity-45"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 bg-gradient-to-r from-teal-800 via-teal-800/85 to-teal-800/45"
+        />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-teal-800/80 to-transparent" />
 
-        <div className="grid items-center gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <Reveal>
-              <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-1.5 text-sm font-medium text-ink">
-                <MapPin className="h-4 w-4 text-mint-400" />
-                {city.name}, {area.name} · from ${prov.priceFrom}
-              </p>
-              <h1 className="mt-5 font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
-                Air Duct Cleaning Services in {city.name}
-              </h1>
-              <p className="mt-6 text-lg leading-relaxed text-ink-soft">{city.intro}</p>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                <div className="flex items-center gap-3 text-ink-soft">
-                  <ShieldCheck className="h-5 w-5 shrink-0 text-mint-400" />
-                  <span>Trained &amp; Insured Technicians</span>
+        <Container>
+          <Reveal>
+            <Breadcrumbs
+              tone="dark"
+              items={[
+                { label: area.name, href: `/${area.slug}/` },
+                { label: city.name, href: cityUrl(city) },
+              ]}
+            />
+          </Reveal>
+
+          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-7">
+              <Reveal>
+                <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-semibold backdrop-blur">
+                  <MapPin className="h-4 w-4 text-teal-400" />
+                  {`${city.name}, ${area.name} · from $${prov.priceFrom}`}
+                </p>
+                <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.25rem]">
+                  Air Duct Cleaning Services in <span className="text-teal-400">{city.name}</span>
+                </h1>
+                <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80">{city.intro}</p>
+                <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-white/90">
+                  <span className="flex items-center gap-2">
+                    <ShieldCheck className="h-5 w-5 shrink-0 text-teal-400" />
+                    Trained &amp; insured technicians
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <Clock className="h-5 w-5 shrink-0 text-teal-400" />
+                    Arrivals 8 am – 6 pm
+                  </span>
                 </div>
-                <div className="flex items-center gap-3 text-ink-soft">
-                  <Clock className="h-5 w-5 shrink-0 text-mint-400" />
-                  <span>Open 8 am – 6 pm, incl. evenings</span>
+                {/* Desktop only — phones have the bottom dock (Call / Get Quote) */}
+                <div className="mt-8 hidden flex-wrap gap-3 lg:flex">
+                  <Button href={quoteHref(prov.code)} size="lg">{`Book in ${city.name}`}</Button>
+                  <Button href={telHref(phone)} variant="secondary" size="lg" className={onDarkSecondary}>
+                    <Phone className="h-4 w-4" />
+                    {`Call ${phone}`}
+                  </Button>
                 </div>
-              </div>
-              {/* Desktop only — phones have the bottom Call/Quote bar */}
-              <div className="mt-8 hidden flex-wrap gap-4 lg:flex">
-                <Button href={quoteHref(prov.code)} size="lg">Book Online</Button>
-                <Button href={telHref(phone)} variant="secondary" size="lg">
-                  <Phone className="h-4 w-4" />
-                  Call {phone}
-                </Button>
-              </div>
-            </Reveal>
-          </div>
+              </Reveal>
+            </div>
 
-          <div className="lg:col-span-5">
-            <Reveal delay={0.1}>
-              <div className="relative isolate overflow-hidden rounded-md border border-line bg-white p-8 shadow-soft backdrop-blur-md">
-                <CardDecor size="lg" />
-                <h2 className="font-display text-lg font-semibold uppercase tracking-wider text-teal-500">
-                  {city.name} prices
-                </h2>
-                <ul className="mt-5 divide-y divide-line">
-                  {[prov.pricing.base, ...prov.pricing.addons.filter((a) => ["furnace", "ac", "dryer"].includes(a.id))].map((p) => (
-                    <li key={p.id} className="flex items-center justify-between gap-3 py-3">
-                      <span className="text-ink-soft">{p.label}</span>
-                      <span className="font-display text-xl font-bold text-ink">
-                        {p.id === "basic" ? `$${p.price}` : p.unit ? `+$${p.price}/${p.unit}` : `+$${p.price}`}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-4 text-sm text-ink-soft">Every duct &amp; vent + free furnace inspection · no hidden charges.</p>
-                <Link
-                  href={costUrl(city)}
-                  className="group mt-6 inline-flex items-center gap-2 font-semibold text-mint-400 hover:text-ink"
-                >
-                  {`Full ${city.name} price guide & add-ons`}
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </Reveal>
+            {/* Glass price card */}
+            <div className="lg:col-span-5">
+              <Reveal delay={0.1}>
+                <div className="rounded-3xl border border-white/15 bg-white/10 p-7 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.6)] backdrop-blur-md sm:p-8">
+                  <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-teal-400">{`${city.name} prices`}</h2>
+                  <ul className="mt-4 divide-y divide-white/10">
+                    {[prov.pricing.base, ...prov.pricing.addons.filter((a) => ["furnace", "ac", "dryer"].includes(a.id))].map((p) => (
+                      <li key={p.id} className="flex items-center justify-between gap-3 py-3">
+                        <span className="text-white/80">{p.label}</span>
+                        <span className="font-display text-xl font-bold">
+                          {p.id === "basic" ? `$${p.price}` : p.unit ? `+$${p.price}/${p.unit}` : `+$${p.price}`}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-4 text-sm text-white/70">Every duct &amp; vent + free furnace inspection · no hidden charges.</p>
+                  <Link
+                    href={costUrl(city)}
+                    className="group mt-5 inline-flex items-center gap-2 font-semibold text-teal-400 hover:text-white"
+                  >
+                    {`Full ${city.name} price guide & add-ons`}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </Reveal>
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </section>
 
       {/* Local angle — climate + housing */}
       <section className="border-y border-line bg-teal-50/50 py-16">
