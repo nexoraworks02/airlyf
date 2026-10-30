@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, MessageCircle, Wind } from "lucide-react";
-import { site, services, provinces } from "@/config/site";
+import { site, services, provinces, ogImage } from "@/config/site";
 import { Container } from "@/components/ui/Container";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
@@ -13,9 +13,10 @@ import { ServiceAreaMap } from "@/components/sections/ServiceAreaMap";
 export const metadata: Metadata = {
   title: "Service Areas — Air Duct Cleaning Across Canada",
   description:
-    "Airlyf cleans air ducts, furnaces, dryer vents and HRVs in Ontario, Alberta, Quebec, British Columbia, Manitoba, Saskatchewan and the Maritimes — with one flat price list per province.",
+    "Airlyf cleans air ducts, furnaces, dryer vents and HRVs in Ontario, Alberta, Quebec, BC, Manitoba, Saskatchewan and the Maritimes, with flat prices per province.",
   alternates: { canonical: "/service-areas/" },
   openGraph: {
+    images: [ogImage],
     title: `Service Areas | ${site.name}`,
     description:
       "Professional duct cleaning across Ontario, Alberta, Quebec, British Columbia, Manitoba, Saskatchewan and the Maritimes.",

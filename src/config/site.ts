@@ -16,6 +16,10 @@ export const site = {
   tagline: "Duct & Furnace Cleaning Specialists",
   description:
     "Airlyf cleans air ducts, furnaces, dryer vents and HRVs for homes and businesses in Ontario, Alberta, Quebec, British Columbia, Manitoba, Saskatchewan and the Maritimes. Flat, published prices, trained technicians and a free furnace inspection with every visit — request your free quote.",
+  // Search-result snippet (Google shows ~155 characters); `description` above
+  // is the fuller version used in business info for search engines.
+  metaDescription:
+    "Air duct, furnace and dryer vent cleaning in Ontario, Alberta, Quebec, BC, Manitoba, Saskatchewan and the Maritimes. Flat prices, free furnace inspection.",
   email: "support@airlyf.ca",
   whatsapp: PHONE,
   // WhatsApp number in full international digits (no +, spaces or symbols) for wa.me links.
@@ -234,6 +238,16 @@ export function provinceCodeFromPath(pathname: string): string | undefined {
   const slug = pathname.split("/").filter(Boolean)[0];
   return provinces.find((p) => p.slug === slug)?.code;
 }
+
+// Preview image for links shared on Facebook, WhatsApp, X, etc. Every page's
+// `openGraph` must include `images: [ogImage]` — a page that sets its own
+// openGraph otherwise drops the image. A blog post can pass its own instead.
+export const ogImage = {
+  url: "/images/og/airlyf-share.png",
+  width: 1200,
+  height: 630,
+  alt: `${site.name} — ${site.tagline}`,
+};
 
 // Link to the homepage booking section (sections/BookingSection.tsx, #quote).
 // With a province code the form starts on that province: "/?area=AB#quote".

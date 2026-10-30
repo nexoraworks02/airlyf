@@ -15,7 +15,7 @@ import {
   Clock
 } from "lucide-react";
 import { serviceDetails } from "@/config/services";
-import { services, site, telHref } from "@/config/site";
+import { services, site, telHref, ogImage } from "@/config/site";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -49,6 +49,7 @@ export async function generateMetadata({ params }: PageProps) {
     description: detail.metaDescription,
     alternates: { canonical: `/services/${slug}/` },
     openGraph: {
+      images: [ogImage],
       title: detail.metaTitle,
       description: detail.metaDescription,
       url: `/services/${slug}/`,

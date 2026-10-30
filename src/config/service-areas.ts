@@ -27,7 +27,7 @@ export const provincePages: ProvincePage[] = [
     name: "Ontario",
     metaTitle: "Duct Cleaning Ontario | Toronto, GTA & Beyond | Airlyf",
     metaDescription:
-      "Air duct, furnace and dryer vent cleaning across Ontario — Toronto, the GTA, Hamilton, Ottawa and more. Flat published prices and a free furnace inspection. Get a quote.",
+      "Air duct, furnace and dryer vent cleaning across Ontario — Toronto, the GTA, Hamilton, Ottawa and more. Flat prices and a free furnace inspection. Get a quote.",
     heroImage: "/images/photos/ontario.webp",
     sideImage: "/images/photos/tech-duct-system.webp",
     sections: [

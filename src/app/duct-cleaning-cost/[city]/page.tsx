@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, CheckCircle2, Lightbulb } from "lucide-react";
 import { cities, citiesIn, cityArea, cityUrl, costUrl, getCity } from "@/config/cities";
-import { site, addonPrice, quoteHref } from "@/config/site";
+import { site, addonPrice, quoteHref, ogImage } from "@/config/site";
 import { COMPARE_TIPS, COST_YEAR, INCLUDED, costFaqs } from "@/config/cost";
 import { Container } from "@/components/ui/Container";
 import { Section, SectionHeading } from "@/components/ui/Section";
@@ -31,12 +31,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!city) return {};
   const p = cityArea(city).province;
   const title = `Duct Cleaning Cost ${city.name} (${COST_YEAR}) | From $${p.priceFrom} | ${site.name}`;
-  const description = `How much does air duct cleaning cost in ${city.name}? Our upfront ${COST_YEAR} prices: from $${p.priceFrom} with every duct & vent and a free furnace inspection, furnace cleaning $${addonPrice(p.pricing, "furnace")} each, plus add-on prices.`;
+  const description = `Air duct cleaning cost in ${city.name} (${COST_YEAR}): from $${p.priceFrom} with every duct & vent and a free furnace inspection. Furnace cleaning $${addonPrice(p.pricing, "furnace")}. See all prices.`;
   return {
     title: { absolute: title },
     description,
     alternates: { canonical: costUrl(city) },
-    openGraph: { title, description, url: costUrl(city) },
+    openGraph: { title, description, url: costUrl(city), images: [ogImage] },
   };
 }
 

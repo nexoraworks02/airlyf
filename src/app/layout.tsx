@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Manrope } from "next/font/google";
 import "./globals.css";
-import { site } from "@/config/site";
+import { site, ogImage } from "@/config/site";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { MobileCTABar } from "@/components/MobileCTABar";
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     default: `Airlyf | Air Duct & Furnace Cleaning | Free Quote`,
     template: `%s | ${site.name}`,
   },
-  description: site.description,
+  description: site.metaDescription,
   metadataBase: new URL(siteUrl),
   alternates: { canonical: "/" },
   keywords: [
@@ -54,17 +54,19 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    images: [ogImage],
     type: "website",
     url: siteUrl,
     siteName: site.name,
     title: `Air Duct & Furnace Cleaning | ${site.name}`,
-    description: site.description,
+    description: site.metaDescription,
     locale: "en_CA",
   },
   twitter: {
     card: "summary_large_image",
+    images: [ogImage.url],
     title: `Air Duct & Furnace Cleaning | ${site.name}`,
-    description: site.description,
+    description: site.metaDescription,
   },
   verification: site.googleSiteVerification
     ? { google: site.googleSiteVerification }
@@ -87,7 +89,7 @@ const jsonLd = {
     addressRegion: "ON",
     addressCountry: "CA",
   },
-  image: `${siteUrl}/opengraph-image`,
+  image: `${siteUrl}${ogImage.url}`,
   // Square logo Google can show next to the business name.
   logo: `${siteUrl}/images/logo/logo-google.png`,
   sameAs: [site.facebookUrl, site.instagramUrl].filter(Boolean),

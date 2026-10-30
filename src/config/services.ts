@@ -86,7 +86,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       },
     ],
     metaTitle: "Air Duct Cleaning in Canada | Airlyf",
-    metaDescription: `Whole-home air duct cleaning in Ontario, Alberta, Quebec, BC, Manitoba, Saskatchewan & the Maritimes from ${on("basic")}. Every vent cleaned, free furnace inspection. Get a free quote.`,
+    metaDescription: `Whole-home air duct cleaning in ON, AB, QC, BC, MB, SK & the Maritimes from ${on("basic")}. Every vent cleaned and a free furnace inspection. Get a free quote.`,
   },
   "furnace-cleaning": {
     slug: "furnace-cleaning",

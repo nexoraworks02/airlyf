@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { provincePages } from "@/config/service-areas";
 import { ProvinceLanding } from "@/components/ProvinceLanding";
+import { ogImage } from "@/config/site";
 
 // Top-level province URLs (/ontario/, /alberta/, …). Only the known
 // slugs are built; anything else is a 404.
@@ -23,6 +24,7 @@ export async function generateMetadata({ params }: PageProps) {
     description: page.metaDescription,
     alternates: { canonical: `/${page.slug}/` },
     openGraph: {
+      images: [ogImage],
       title: page.metaTitle,
       description: page.metaDescription,
       url: `/${page.slug}/`,

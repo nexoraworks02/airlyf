@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, CheckCircle2, MapPin } from "lucide-react";
-import { provinces, site, addonPrice } from "@/config/site";
+import { provinces, site, addonPrice, ogImage } from "@/config/site";
 import { provincePages } from "@/config/service-areas";
 import { citiesIn, costUrl } from "@/config/cities";
 import { COMPARE_TIPS, COST_YEAR, INCLUDED, costFaqs } from "@/config/cost";
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   title: { absolute: title },
   description,
   alternates: { canonical: "/duct-cleaning-cost/" },
-  openGraph: { title, description, url: "/duct-cleaning-cost/" },
+  openGraph: { title, description, url: "/duct-cleaning-cost/", images: [ogImage] },
 };
 
 const faqs = [

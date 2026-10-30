@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, CheckCircle2, Clock } from "lucide-react";
 import { blogPosts, getPost } from "@/config/blog";
-import { site } from "@/config/site";
+import { site, ogImage } from "@/config/site";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: { absolute: post.metaTitle },
     description: post.description,
     alternates: { canonical: url },
-    openGraph: { type: "article", title: post.metaTitle, description: post.description, url, publishedTime: post.date },
+    openGraph: { type: "article", title: post.metaTitle, description: post.description, url, publishedTime: post.date, images: [ogImage] },
   };
 }
 

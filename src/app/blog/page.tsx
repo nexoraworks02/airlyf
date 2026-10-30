@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, Clock } from "lucide-react";
 import { blogPosts } from "@/config/blog";
-import { site } from "@/config/site";
+import { site, ogImage } from "@/config/site";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { CardDecor } from "@/components/ui/CardDecor";
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: { absolute: title },
   description,
   alternates: { canonical: "/blog/" },
-  openGraph: { title, description, url: "/blog/" },
+  openGraph: { title, description, url: "/blog/", images: [ogImage] },
 };
 
 export default function BlogIndexPage() {

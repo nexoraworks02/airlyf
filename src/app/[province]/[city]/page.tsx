@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight, CheckCircle2, Clock, Home, MapPin, Phone, ShieldCheck, Sun } from "lucide-react";
 import { cities, citiesIn, cityArea, cityUrl, costUrl, getCity } from "@/config/cities";
-import { services, site, phoneFor, telHref, quoteHref, whatsappFor } from "@/config/site";
+import { services, site, phoneFor, telHref, quoteHref, whatsappFor, ogImage } from "@/config/site";
 import { provincePages } from "@/config/service-areas";
 import { CoverageSearch } from "@/components/CoverageSearch";
 import { Container } from "@/components/ui/Container";
@@ -38,14 +38,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!city) return {};
   const { province: prov } = cityArea(city);
   const title = `Air Duct Cleaning ${city.name} | From $${prov.priceFrom} | ${site.name}`;
-  const description = `Professional air duct, furnace and dryer vent cleaning in ${city.name} — ${city.neighbourhoods
-    .slice(0, 3)
+  const description = `Air duct, furnace and dryer vent cleaning in ${city.name} — ${city.neighbourhoods
+    .slice(0, 2)
     .join(", ")} and more. Every duct & vent included, from $${prov.priceFrom}. Book online.`;
   return {
     title: { absolute: title },
     description,
     alternates: { canonical: cityUrl(city) },
-    openGraph: { title, description, url: cityUrl(city) },
+    openGraph: { title, description, url: cityUrl(city), images: [ogImage] },
   };
 }
 
